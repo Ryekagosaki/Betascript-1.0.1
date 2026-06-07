@@ -10,15 +10,19 @@ const program = new Command();
 const compiler = new BetaCompiler();
 
 function printUsage() {
-  console.log(`BetaScript Compiler - Ngoding rasa Betawi, kagak ribet!
+  console.log(`BetaScript 1.1.0 - Ngoding rasa Betawi, kagak ribet!
   
 Usage:
   betascript <command> [options]
 
 Commands:
-  compile <file.beta>    Compile BetaScript to JavaScript
-  run <file.beta>      Compile and run BetaScript
-  help                 Show this help message
+  compile <file.beta>       Compile BetaScript to JavaScript
+  run <file.beta>           Compile and run BetaScript
+  repl                      Interactive BetaScript shell
+  format <file.beta>        Format BetaScript file
+  lint <file.beta>          Validate BetaScript file
+  install <package>         Install beta-* community package
+  help                      Show this help message
 `);
 }
 
@@ -142,7 +146,7 @@ function run() {
   program
     .name('betascript')
     .description('BetaScript Compiler - Ngoding rasa Betawi, kagak ribet!')
-    .version('1.0.1');
+    .version('1.1.0');
 
   program
     .command('compile <file>')

@@ -41,6 +41,29 @@ teriak(pesan);`,
         document.getElementById('output-content').innerHTML = '';
     }
 
+    const tutorialText = `BetaScript Mini Tutorial
+
+1. Tulis output:
+   teriak("Halo bang!");
+
+2. Bikin variabel:
+   ane nama = "Azmi";
+   tetep tahun = 2026;
+
+3. Bikin fungsi:
+   bikin sapa(ente nama) {
+     kasoh "Halo " + nama;
+   }
+
+4. Jalankan dengan tombol Run atau Ctrl+Enter.
+
+Tip: pakai keyword final seperti cetak, tetep, gua, anyar, kasoh, nanti, tungguin.`;
+
+    function showTutorial() {
+        clearOutput();
+        log(tutorialText, 'tutorial');
+    }
+
     function runCode() {
         const code = editor.getValue();
         clearOutput();
@@ -178,6 +201,10 @@ teriak(pesan);`,
         };
     }
 
-    document.getElementById('run-button')?.addEventListener('click', runCode);
+    document.getElementById('run-btn')?.addEventListener('click', runCode);
+    document.getElementById('clear-btn')?.addEventListener('click', clearOutput);
+    document.getElementById('tutorial-btn')?.addEventListener('click', showTutorial);
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, runCode);
+    showTutorial();
     window.runBetaScript = runCode;
 });

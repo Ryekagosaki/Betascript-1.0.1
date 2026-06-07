@@ -55,6 +55,7 @@ export declare class Parser {
     private postfix;
     private call;
     private primary;
+    private legacySuperCallExpression;
     private isBuiltinIdentifier;
     private propertyName;
     private objectExpression;

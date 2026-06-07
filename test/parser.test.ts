@@ -107,6 +107,31 @@ describe("Parser", () => {
     expect(ast.body[2].type).toBe("ExpressionStatement");
   });
 
+  test("should parse legacy OOP aliases", () => {
+    const source = `cetakan Binatang {
+      tetap nama = "";
+      bikin baru(nama: kata) { ini.nama = nama; }
+      suara() { teriak("Suara binatang"); }
+    }
+
+    cetakan Kucing warisan Binatang {
+      bikin baru(nama: kata) { panggil atas.bikin baru(nama); }
+      suara() { teriak("Miaw miaw!"); }
+    }
+
+    ane kucing = baru Kucing("Kitty");
+    kucing.suara();`;
+
+    const lexer = new Lexer(source);
+    const tokens = lexer.tokenize();
+    const parser = new Parser(source);
+    const ast = parser.parse(tokens);
+
+    expect(ast.body[0].type).toBe("ClassDeclaration");
+    expect(ast.body[1].type).toBe("ClassDeclaration");
+    expect((ast.body[1] as any).superclass).toBe("Binatang");
+  });
+
   test("should parse destructuring and generic annotation", () => {
     const source = `mode ketat; ane {nama, umur} = orang; ane [a, b] = daftar; bikin identitas<T>(x: T): T { kasoh x; }`;
     const lexer = new Lexer(source);

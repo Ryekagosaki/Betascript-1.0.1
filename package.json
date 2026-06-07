@@ -1,8 +1,22 @@
 {
   "name": "betascript",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Bahasa pemrograman berbasis Betawi - Ngoding rasa Betawi, kagak ribet!",
   "main": "dist/src/index.js",
+  "files": [
+    "bin/",
+    "dist/",
+    "src/",
+    "examples/",
+    "icons/",
+    "config/",
+    "scripts/",
+    "web-ide/",
+    "README.md",
+    "PANDUAN_BETASCRIPT.md",
+    "ACODE_GLOBAL.md",
+    "LICENSE"
+  ],
   "bin": {
     "betascript": "bin/betascript.js"
   },
@@ -14,7 +28,7 @@
     "clean": "rm -rf dist"
   },
   "keywords": ["compiler", "transpiler", "betawi", "indonesian", "programming-language"],
-  "author": "",
+  "author": "Azmi Hail",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.0.0",

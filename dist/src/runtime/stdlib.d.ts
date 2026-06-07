@@ -74,6 +74,9 @@ export declare const deret: {
 export declare const waktu: {
     sekarang: () => Date;
     format: (v: Date | string | number) => string;
+    tahun: (v?: Date | string | number) => number;
+    bulan: (v?: Date | string | number) => number;
+    tanggal: (v?: Date | string | number) => number;
 };
 export declare const json: {
     parse: (text: string, reviver?: (this: any, key: string, value: any) => any) => any;

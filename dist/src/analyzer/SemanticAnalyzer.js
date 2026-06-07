@@ -300,9 +300,6 @@ class SemanticAnalyzer {
                 }
                 break;
             case "SuperExpression":
-                if (expr.property) {
-                    this.analyzeExpression(expr.property);
-                }
                 if (expr.arguments) {
                     for (const arg of expr.arguments) {
                         this.analyzeExpression(arg);

@@ -978,6 +978,13 @@ while (!this.check(TokenType.RIGHT_BRACE) && !this.isAtEnd()) {
         position: this.peek().position
       };
     }
+
+    if (this.match(TokenType.SABUT)) {
+      if (this.check(TokenType.BABANG)) {
+        return this.legacySuperCallExpression();
+      }
+      return this.unary();
+    }
     
     // Handle 'babang' (super) expression
     if (this.match(TokenType.BABANG)) {
@@ -1244,6 +1251,58 @@ if (this.match(TokenType.BETOEL)) {
     }
     
 throw BetaError.expected("Expected expression", this.peek().position);
+  }
+
+  private legacySuperCallExpression(): SuperExpression {
+    const token = this.consume(TokenType.BABANG, "Expected 'babang' after 'panggil'");
+    let property: Identifier | undefined;
+
+    if (this.match(TokenType.PUNYE, TokenType.DOT)) {
+      if (this.match(TokenType.BIKIN)) {
+        if (this.match(TokenType.ANYAR, TokenType.MULA)) {
+          property = {
+            type: "Identifier",
+            name: "constructor",
+            position: this.peek().position
+          };
+        } else {
+          property = {
+            type: "Identifier",
+            name: "bikin",
+            position: this.peek().position
+          };
+        }
+      } else if (this.match(TokenType.MULA, TokenType.ANYAR)) {
+        property = {
+          type: "Identifier",
+          name: "constructor",
+          position: this.peek().position
+        };
+      } else {
+        property = {
+          type: "Identifier",
+          name: this.propertyName(),
+          position: this.peek().position
+        };
+      }
+    }
+
+    const args: Expression[] = [];
+    if (this.match(TokenType.LEFT_PAREN)) {
+      if (!this.check(TokenType.RIGHT_PAREN)) {
+        do {
+          args.push(this.assignment());
+        } while (this.match(TokenType.COMMA));
+      }
+      this.consume(TokenType.RIGHT_PAREN, "Expected ')' after super arguments");
+    }
+
+    return {
+      type: "SuperExpression",
+      property,
+      arguments: args,
+      position: token.position
+    };
   }
 
   private isBuiltinIdentifier(type: TokenType): boolean {

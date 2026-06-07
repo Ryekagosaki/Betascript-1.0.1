@@ -217,6 +217,9 @@ exports.deret = {
 exports.waktu = {
     sekarang: () => new Date(),
     format: (v) => new Date(v).toISOString(),
+    tahun: (v = new Date()) => new Date(v).getFullYear(),
+    bulan: (v = new Date()) => new Date(v).getMonth() + 1,
+    tanggal: (v = new Date()) => new Date(v).getDate(),
 };
 exports.json = {
     parse: JSON.parse,

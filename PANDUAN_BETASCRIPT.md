@@ -1,6 +1,10 @@
-# Panduan Lengkap BetaScript
+# Panduan Lengkap BetaScript 1.1.0
 
 BetaScript adalah bahasa pemrograman berbasis kosakata Betawi yang dikompilasi menjadi JavaScript. File program BetaScript memakai ekstensi `.beta` dan bisa dijalankan lewat CLI `betascript`.
+
+Author: Azmi Hail.
+
+Lisensi: MIT, 2026.
 
 Dokumen ini berisi cara pakai, aturan dasar, referensi syntax, contoh kode, dan catatan troubleshooting agar pengguna baru tidak bingung.
 
@@ -11,6 +15,7 @@ Dokumen ini berisi cara pakai, aturan dasar, referensi syntax, contoh kode, dan 
 - [Program Pertama](#program-pertama)
 - [Aturan Dasar Penulisan](#aturan-dasar-penulisan)
 - [Keyword Utama](#keyword-utama)
+- [Alias Lama Yang Masih Didukung](#alias-lama-yang-masih-didukung)
 - [Variabel dan Konstanta](#variabel-dan-konstanta)
 - [Tipe Data dan Literal](#tipe-data-dan-literal)
 - [Operator](#operator)
@@ -213,6 +218,44 @@ Catatan: `diem` sudah disediakan sebagai keyword cadangan untuk private member, 
 | `lempar` | lempar error | `throw` |
 | `ambil` | import | `import` |
 | `dari` | from | `from` |
+
+## Alias Lama Yang Masih Didukung
+
+BetaScript 1.1.0 menyarankan keyword final seperti `cetak`, `tetep`, `gua`, `turun`, `anyar`, `kasoh`, `nanti`, dan `tungguin`. Namun beberapa tutorial lama masih memakai keyword lama. Supaya pengguna tidak bingung, alias berikut masih diterima:
+
+| Alias lama | Keyword final | Catatan |
+|---|---|---|
+| `cetakan` | `cetak` | class |
+| `tetap` | `tetep` | const |
+| `warisan` | `turun` | extends |
+| `ini` | `gua` | this |
+| `atas` | `babang` | super |
+| `baru` | `anyar` | new |
+| `balikin` | `kasoh` | return |
+| `asinkron` | `nanti` | async |
+| `tunggu` | `tungguin` | await |
+| `coba` | `cobi` | try |
+| `panggil atas.bikin baru(...)` | `babang(...)` | super constructor lama |
+
+Contoh lama yang masih bisa jalan:
+
+```beta
+cetakan Kucing warisan Binatang {
+  bikin baru(nama: kata) {
+    panggil atas.bikin baru(nama);
+  }
+}
+```
+
+Gaya final yang disarankan:
+
+```beta
+cetak Kucing turun Binatang {
+  mula(ente nama: kata) {
+    babang(nama);
+  }
+}
+```
 
 ## Variabel dan Konstanta
 
@@ -751,7 +794,7 @@ kasoh bikin sapa(ente nama) {
 Export variabel:
 
 ```beta
-kasoh ane versi = "1.0.0";
+kasoh ane versi = "1.1.0";
 kasoh tetep NAMA = "BetaScript";
 ```
 
@@ -931,7 +974,7 @@ Namespace yang tersedia:
 | `matematika` | `pi`, `akar`, `acak`, `bulat`, `lantai`, `atap`, `mutlak`, `maksimal`, `minimal` |
 | `teks` | `gede`, `kecil`, `pisah`, `ganti`, `cocok` |
 | `deret` | `petakan`, `saring`, `kurangi`, `urutin` |
-| `waktu` | `sekarang`, `format` |
+| `waktu` | `sekarang`, `format`, `tahun`, `bulan`, `tanggal` |
 | `json` | `parse`, `stringify` |
 
 String dan array juga punya method Betawi langsung:

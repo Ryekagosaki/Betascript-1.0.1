@@ -1,252 +1,283 @@
-# BetaScript
+# BetaScript 1.1.0
 
-**Bahasa pemrograman berbasis Betawi - Ngoding rasa Betawi, kagak ribet!**
+**Bahasa pemrograman berbasis Betawi. Ngoding rasa Betawi, kagak ribet.**
 
-BetaScript adalah bahasa pemrograman yang menggunakan bahasa Betawi sebagai sintaks utama. Dibuat untuk memudakan nyari yang baru belajar ngoding, dengan gaya bahasa yang lebih akrab buat yang ora gugur Jawa.
+BetaScript adalah bahasa pemrograman yang ditulis dengan kosakata Betawi dan dikompilasi ke JavaScript. File BetaScript memakai ekstensi `.beta`, bisa dijalankan di Node.js, Termux, Acode, VS Code, dan Web IDE.
 
-## 📖 Introduksi
-
-BetaScript lahir dari ide buat bikin bahasa pemrograman yang pakai istilah Sunda/Betawi supaya lebih gampang dimengerti. Contoh:
-- `teriak` buat print/console.log
-- `bikin` buat function
-- `cetakan` buat class
-- `kalo` buat if, `kalo_kagak` buat else
-
-Bahasa ini otomatis ditranspil ke JavaScript, jadi bisa dipake di mana aja JavaScript jalan.
-
-## ⌨️ Sintaks Utama (Keywords Mapping)
-
-| BetaScript | JavaScript | Penjelasan |
-|------------|------------|------------|
-| `ane` | `let` | Deklarasi variabel |
-| `tetap` | `const` | Variabel tetap/tidak berubah |
-| `teriak(...)` | `console.log(...)` | Mencetak output |
-| `bikin` | `function` | Deklarasi fungsi |
-| `asinkron bikin` | `async function` | Fungsi asinkron |
-| `balikin` | `return` | Mengembalikan nilai |
-| `kalo` | `if` | Kondisi if |
-| `kalo_kagak` | `else` | Kondisi else |
-| `kagaknya` | `else if` | Kondisi else if |
-| `selama` | `while` | Loop while |
-| `itungan` | `for` | Loop for |
-| `coba` | `try` | Try block |
-| `tangkep` | `catch` | Catch block |
-| `pilih` | `switch` | Switch statement |
-| `kalau_gitu` | `case` | Case dalam switch |
-| `udahan` | `break` | Break dari switch/loop |
-| `lanjut` | `continue` | Lanjut ke iterasi berikutnya |
-| `cetakan` | `class` | Deklarasi kelas |
-| `warisan` | `extends` | Pewarisan kelas |
-| `panggil` | - | Memanggil method/fungsi |
-| `atas` | `super` | Referensi ke parent class |
-| `ini` | `this` | Referensi instance |
-| `impor` | `import` | Mengimpor modul |
-| `ekspor` | `export` | Mengekspor modul |
-| `bener` | `true` | Nilai boolean true |
-| `kagak` | `false` | Nilai boolean false |
-| `kosong` | `void` | Tipe yang kosong/tidak ada return |
-| `tunggu` | `await` | Menunggu promise |
-| `kata` | `string` | Tipe teks |
-| `angka` | `number` | Tipe angka |
-
-## 📦 Cara Install
-
-### Acode Android (Global via GitHub Release)
-
-Cara paling enak adalah pakai Plugin Source URL Acode:
-
-```text
-https://raw.githubusercontent.com/Ryekagosaki/Betascript-Acode/main/acode-plugin-source.json
-```
-
-Langkahnya:
-
-1. Buka Acode.
-2. Masuk ke menu plugin/extension.
-3. Buka pengaturan plugin source/repository source.
-4. Tambahkan URL di atas.
-5. Refresh daftar plugin.
-6. Install `BetaScript`.
-7. Restart Acode.
-8. Buat file `test.beta`.
-
-Kalau Plugin Source URL belum tersedia di versi Acode kamu, pakai cara ZIP manual di bawah.
-
-Plugin Acode BetaScript sudah tersedia sebagai ZIP publik di GitHub Release:
-
-```text
-https://github.com/Ryekagosaki/Betascript-Acode/releases/download/v1.0.2/betascript-acode-1.0.2.zip
-```
-
-Cara install di Acode:
-
-1. Download file `betascript-acode-1.0.2.zip` dari link di atas.
-2. Buka Acode di HP.
-3. Masuk ke menu plugin/extension.
-4. Pilih install plugin dari file ZIP lokal.
-5. Pilih `betascript-acode-1.0.2.zip`.
-6. Restart Acode.
-7. Buat file baru, misalnya `test.beta`.
-
-Setelah plugin aktif, file berakhiran `.beta` akan dikenali sebagai file BetaScript dan akan diberi logo BetaScript di Acode file explorer. Kalau logo belum muncul, tutup dan buka ulang folder project atau restart Acode sekali lagi.
-
-### Terminal (Linux/macOS/Windows)
+## Quick Start
 
 ```bash
-# Clone repository
-git clone https://github.com/USERNAME/betascript.git
-cd betascript
-
-# Install dependencies
-npm install
-
-# Build
-npm run build
-
-# Install globally (optional)
-npm install -g .
+npm install -g betascript
+betascript --version
 ```
 
-### Termux (Android)
+Jalankan file `.beta`:
 
 ```bash
-# Jalankan script setup
-bash scripts/termux-setup.sh
-
-# Atau manual:
-pkg install nodejs-lts
-npm install -g .
+betascript run hello.beta
 ```
 
-### VS Code
-
-1. Buka VS Code
-2. Pergi ke Extensions (Ctrl+Shift+X)
-3. Gunakan repo extension terpisah: https://github.com/Ryekagosaki/Betascript-VSCode
-4. Ikuti instruksi install/package di repo extension tersebut
-5. Restart VS Code
-
-Atau install manual:
-```bash
-git clone https://github.com/Ryekagosaki/Betascript-VSCode.git
-cd Betascript-VSCode
-npm install
-npm run compile
-```
-
-### Web
-
-Buka file `web-ide/index.html` di browser, atau:
+Compile ke JavaScript:
 
 ```bash
-# Jika ada server lokal
-npm run dev
-# Buka http://localhost:3000
+betascript compile hello.beta
 ```
 
-## 💻 Contoh Kode
+## Hello World
 
-### Hello World
-```betascript
-teriak("Hai dunia!");
-teriak("Ngoding rasa Betawi, kagak ribet!");
+```beta
+teriak("Woy, ape kabar bang!");
 
-ane nama = "BetaScript";
-teriak(nama);
+ane nama = "Bang Azmi";
+tetep versi = "1.1.0";
+
+teriak(`Halo ${nama}, ini BetaScript ${versi}`);
 ```
 
-### Fibonacci
-```betascript
+## Syntax Utama
+
+| BetaScript | JavaScript | Arti |
+|---|---|---|
+| `ane` | `let` | variabel |
+| `tetep` | `const` | konstanta |
+| `betoel` | `true` | benar |
+| `kaga` | `false` | salah |
+| `kosong` | `null` | nilai kosong |
+| `entah` | `undefined` | belum diketahui |
+| `kalo` | `if` | percabangan |
+| `kagaknye` | `else if` | percabangan lanjutan |
+| `udah_gituh` | `else` | selain itu |
+| `selagi` | `while` | while loop |
+| `itung` | `for` | for loop |
+| `saban` | `for...of` | loop tiap item |
+| `dah` | `break` | berhenti |
+| `lanjut` | `continue` | lanjut loop |
+| `bikin` | `function` | fungsi |
+| `kasoh` | `return` / `export` | return/export |
+| `nanti` | `async` | async function |
+| `tungguin` | `await` | await |
+| `cetak` | `class` | class |
+| `turun` | `extends` | inheritance |
+| `mula` | `constructor` | constructor |
+| `gua` | `this` | instance saat ini |
+| `punye` | `.` | akses member |
+| `babang` | `super` | parent class |
+| `anyar` | `new` | object baru |
+| `cobi` | `try` | try |
+| `tangkep` | `catch` | catch |
+| `akhirnye` | `finally` | finally |
+| `lempar` | `throw` | throw |
+
+BetaScript 1.1.0 tetap menerima beberapa alias lama supaya tutorial lama tidak langsung rusak, misalnya `cetakan`, `tetap`, `warisan`, `ini`, `baru`, `balikin`, `asinkron`, dan `tunggu`. Gaya yang disarankan tetap keyword Betawi final di tabel atas.
+
+## Contoh Fungsi
+
+```beta
 bikin fibonacci(n: angka): angka {
   kalo (n <= 1) {
-    balikin n;
+    kasoh n;
   }
-  balikin fibonacci(n - 1) + fibonacci(n - 2);
+  kasoh fibonacci(n - 1) + fibonacci(n - 2);
 }
 
 ane hasil = fibonacci(10);
 teriak("Fibonacci(10) =", hasil);
 ```
 
-### Async/Await
-```betascript
-asinkron bikin ambil_data() {
+## Async/Await
+
+```beta
+nanti bikin ambil_data() {
   teriak("Sabar ya, ambil data...");
-  kosong
+  tungguin tidur(500);
+  kasoh "data selesai";
 }
 
-asinkron bikin main() {
-  teriak("Mulai");
-  tunggu ambil_data();
-  teriak("Selesai");
+nanti bikin main() {
+  ane hasil = tungguin ambil_data();
+  teriak(hasil);
 }
 
 main();
 ```
 
-### OOP (Object Oriented Programming)
-```betascript
-cetakan Binatang {
-  tetap nama = "";
-  
-  bikin baru(nama: kata) {
-    ini.nama = nama;
+## OOP
+
+```beta
+cetak Binatang {
+  mula(ente nama) {
+    gua punye nama = nama;
   }
-  
-  suara() {
+
+  bikin suara() {
     teriak("Suara binatang");
   }
 }
 
-cetakan Kucing warisan Binatang {
-  bikin baru(nama: kata) {
-    panggil atas.bikin baru(nama);
+cetak Kucing turun Binatang {
+  mula(ente nama) {
+    babang(nama);
   }
-  
-  suara() {
-    teriak("Miaw miaw!");
+
+  bikin suara() {
+    teriak(gua punye nama + ": Miaw miaw!");
   }
 }
 
-ane kucing = baru Kucing("Kitty");
-kucing.suara();
-teriak(kucing.nama);
+ane kucing = anyar Kucing("Kitty");
+kucing punye suara();
 ```
 
-## ✨ Fitur-fitur Utama
+## Fitur Modern
 
-- **Sintaks Bahasa Betawi**: Lebih gampang dimengerti buat pemula
-- **Transpiler ke JavaScript**: Bisa jalan di Node.js, browser, atau mana aja JS jalan
-- **Dukungan OOP**: Class, inheritance, method, constructor
-- **Async/Await**: Dukungan programming asynchronous
-- **Type Annotations**: Dukungan tipe data dasar (kata, angka, dll)
-- **Extension VS Code**: Syntax highlighting, snippets, autocomplete
-- **Web IDE**: Bisa ditulis langsung di browser
-- **CLI Tool**: Jalankan langsung dari terminal
+```beta
+mode ketat;
 
-## 🛣️ Roadmap
+ane orang = { nama: "Ali", umur: 20 };
+ane {nama, umur} = orang;
 
-- [x] Lexer dan Parser dasar
+ane daftar = deret[1, 2, 3];
+
+bikin gabung(...isi) {
+  kasoh isi;
+}
+
+ane hasil = gabung(0, ...daftar);
+ane judul = `Halo ${nama}`;
+ane pola = /Ali/i;
+ane aman = orang?.alamat ?? "Jakarta";
+
+teriak(judul, teks punye cocok(judul, pola)[0], aman, hasil punye sebrapa);
+```
+
+Fitur yang didukung:
+
+- Destructuring object dan array
+- Rest/spread operator
+- Optional chaining `?.`
+- Nullish coalescing `??`
+- Template literal
+- Regex literal
+- Type annotation opsional
+- Generic annotation yang diabaikan saat emit JavaScript
+- `mode ketat` sebagai directive best-practice
+
+## Standard Library
+
+| Namespace / Fungsi | Isi |
+|---|---|
+| `teriak` | print ke console |
+| `bisik` | tulis output tanpa newline |
+| `dengerin` | input async |
+| `tidur(ms)` | sleep promise |
+| `semua([...])` | `Promise.all` |
+| `balap([...])` | `Promise.race` |
+| `peta` | `Map` |
+| `himpunan` | `Set` |
+| `peta_lemah` | `WeakMap` |
+| `himpunan_lemah` | `WeakSet` |
+| `http` | `ambil`, `kirim` |
+| `file` | `baca`, `tulis`, `ada` |
+| `matematika` | `pi`, `akar`, `acak`, `bulat`, `lantai`, `atap` |
+| `teks` | `gede`, `kecil`, `pisah`, `ganti`, `cocok` |
+| `deret` | `petakan`, `saring`, `kurangi`, `urutin`, `gabung` |
+| `waktu` | `sekarang`, `format`, `tahun`, `bulan`, `tanggal` |
+| `json` | `parse`, `stringify` |
+
+Contoh:
+
+```beta
+ane nama = "azmi";
+teriak(teks punye gede(nama));
+
+ane angka = deret[1, 2, 3];
+teriak(angka punye sebrapa);
+
+ane tahunIni = waktu punye tahun(waktu punye sekarang());
+teriak(tahunIni);
+```
+
+## CLI 1.1.0
+
+```bash
+betascript run file.beta
+betascript run file.beta --watch
+betascript run file.beta --debug
+betascript compile file.beta
+betascript compile file.beta --debug
+betascript repl
+betascript format file.beta
+betascript lint file.beta
+betascript install nama-package
+```
+
+Package manager BetaScript memakai prefix `beta-`. Contoh:
+
+```bash
+betascript install http
+```
+
+akan menjalankan:
+
+```bash
+npm install beta-http
+```
+
+## Editor dan Mobile
+
+Editor integration dipisah ke repo sendiri supaya core BetaScript tidak berantakan.
+
+| Platform | Repo |
+|---|---|
+| Acode Android | https://github.com/Ryekagosaki/Betascript-Acode |
+| VS Code | https://github.com/Ryekagosaki/Betascript-VSCode |
+| Web IDE | folder `web-ide/` di repo core |
+
+Plugin Source URL Acode:
+
+```text
+https://raw.githubusercontent.com/Ryekagosaki/Betascript-Acode/main/acode-plugin-source.json
+```
+
+## Ciri Khas BetaScript
+
+BetaScript bukan cuma JavaScript yang diganti nama keyword. BetaScript punya rasa sendiri:
+
+- Kosakata Betawi sebagai identitas bahasa.
+- `punye` sebagai operator member access yang terasa alami.
+- `gua`, `babang`, `anyar`, `mula` untuk OOP dengan gaya percakapan Betawi.
+- Runtime helper seperti `teriak`, `dengerin`, `sebrapa`, `omongan`, `itungan`, dan `tidur`.
+- Ekosistem package komunitas dengan prefix `beta-*`.
+- Target ramah Termux/Acode supaya bisa belajar dan ngoding dari Android.
+
+## Roadmap 1.x
+
+- [x] Lexer, parser, semantic analyzer
 - [x] Transpiler ke JavaScript
-- [x] Dukungan fungsi dan variabel
-- [x] OOP (Class, Inheritance)
-- [x] Async/Await
-- [x] Extension VS Code
-- [x] Web IDE
-- [x] CLI Tool
-- [ ] Package Manager khusus BetaScript
-- [ ] Standard Library lebih lengkap (Array, String methods)
-- [ ] Debugger terintegrasi
-- [ ] Tutorial interaktif di web
-- [ ] Dokumentasi lebih detail
-- [ ] Mobile app untuk belajar
-- [ ] Community packages ecosystem
+- [x] CLI run/compile/repl/watch/debug/format/lint/install
+- [x] OOP, async/await, module import/export
+- [x] Standard library array/string/time/json/http/file/promise
+- [x] Acode plugin repo terpisah
+- [x] VS Code extension repo terpisah
+- [x] Web IDE dasar
+- [x] Dokumentasi lengkap di `PANDUAN_BETASCRIPT.md`
+- [ ] Submit Acode plugin ke official Acode Store
+- [ ] Tutorial interaktif web bertahap
+- [ ] Mobile learning mini app berbasis WebView/Acode guide
+- [ ] Registry komunitas package `beta-*`
+- [ ] Source map yang lebih presisi untuk error runtime
+- [ ] Debugger interaktif step-by-step
 
-## 🤝 Kontribusi
+## Dokumentasi Lengkap
 
-BetaScript open source dan terbuka buat kontribusi! Buka issue atau pull request di GitHub.
+Baca panduan lengkap:
 
-## 📄 Lisensi
+```text
+PANDUAN_BETASCRIPT.md
+```
 
-MIT License - Bebas pakai, dimodifikasi, dan didistribusikan.
-Copyright (c) 2024 BetaScript
+## Lisensi
+
+MIT License.
+
+Copyright (c) 2026 Azmi Hail

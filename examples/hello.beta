@@ -4,5 +4,5 @@ teriak("Ngoding rasa Betawi, kagak ribet!");
 ane nama = "BetaScript";
 teriak(nama);
 
-tetep versi = "1.0.0";
+tetep versi = "1.1.0";
 teriak(versi);

@@ -839,6 +839,12 @@ class Parser {
                 position: this.peek().position
             };
         }
+        if (this.match(Token_1.TokenType.SABUT)) {
+            if (this.check(Token_1.TokenType.BABANG)) {
+                return this.legacySuperCallExpression();
+            }
+            return this.unary();
+        }
         // Handle 'babang' (super) expression
         if (this.match(Token_1.TokenType.BABANG)) {
             let property;
@@ -1077,6 +1083,57 @@ class Parser {
             return expr;
         }
         throw BetaError_1.BetaError.expected("Expected expression", this.peek().position);
+    }
+    legacySuperCallExpression() {
+        const token = this.consume(Token_1.TokenType.BABANG, "Expected 'babang' after 'panggil'");
+        let property;
+        if (this.match(Token_1.TokenType.PUNYE, Token_1.TokenType.DOT)) {
+            if (this.match(Token_1.TokenType.BIKIN)) {
+                if (this.match(Token_1.TokenType.ANYAR, Token_1.TokenType.MULA)) {
+                    property = {
+                        type: "Identifier",
+                        name: "constructor",
+                        position: this.peek().position
+                    };
+                }
+                else {
+                    property = {
+                        type: "Identifier",
+                        name: "bikin",
+                        position: this.peek().position
+                    };
+                }
+            }
+            else if (this.match(Token_1.TokenType.MULA, Token_1.TokenType.ANYAR)) {
+                property = {
+                    type: "Identifier",
+                    name: "constructor",
+                    position: this.peek().position
+                };
+            }
+            else {
+                property = {
+                    type: "Identifier",
+                    name: this.propertyName(),
+                    position: this.peek().position
+                };
+            }
+        }
+        const args = [];
+        if (this.match(Token_1.TokenType.LEFT_PAREN)) {
+            if (!this.check(Token_1.TokenType.RIGHT_PAREN)) {
+                do {
+                    args.push(this.assignment());
+                } while (this.match(Token_1.TokenType.COMMA));
+            }
+            this.consume(Token_1.TokenType.RIGHT_PAREN, "Expected ')' after super arguments");
+        }
+        return {
+            type: "SuperExpression",
+            property,
+            arguments: args,
+            position: token.position
+        };
     }
     isBuiltinIdentifier(type) {
         return type === Token_1.TokenType.TERIAK ||

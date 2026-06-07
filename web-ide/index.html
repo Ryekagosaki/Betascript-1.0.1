@@ -82,6 +82,15 @@
         #output-content .log {
             color: #d4d4d4;
         }
+        #output-content .tutorial {
+            color: #ffd700;
+            border: 1px solid #5a4a00;
+            background: #26210d;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body>
@@ -89,6 +98,7 @@
         <div id="header">
             <h1>BetaScript Web IDE</h1>
             <div class="actions">
+                <button id="tutorial-btn">Tutorial</button>
                 <button id="run-btn">Run (Ctrl+Enter)</button>
                 <button id="clear-btn">Clear Output</button>
             </div>
@@ -96,7 +106,7 @@
         <div id="editor-container">
             <div id="editor"></div>
             <div id="output">
-                <div id="output-header">Output</div>
+                <div id="output-header">Output & Tutorial</div>
                 <div id="output-content"></div>
             </div>
         </div>

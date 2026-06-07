@@ -38,7 +38,7 @@ const file = { baca: (p) => __fs.promises.readFile(p, "utf8"), tulis: (p, data) 
 const matematika = { pi: Math.PI, akar: Math.sqrt, acak: Math.random, bulat: Math.round, lantai: Math.floor, atap: Math.ceil, mutlak: Math.abs, maksimal: Math.max, minimal: Math.min };
 const teks = { gede: (v) => String(v).toUpperCase(), kecil: (v) => String(v).toLowerCase(), pisah: (v, s) => String(v).split(s), ganti: (v, a, b) => String(v).replace(a, b), cocok: (v, pola) => String(v).match(pola) };
 const deret = { petakan: (v, fn) => v.map(fn), saring: (v, fn) => v.filter(fn), kurangi: (v, fn, init) => init === undefined ? v.reduce(fn) : v.reduce(fn, init), urutin: (v, fn) => v.sort(fn) };
-const waktu = { sekarang: () => new Date(), format: (v) => new Date(v).toISOString() };
+const waktu = { sekarang: () => new Date(), format: (v) => new Date(v).toISOString(), tahun: (v = new Date()) => new Date(v).getFullYear(), bulan: (v = new Date()) => new Date(v).getMonth() + 1, tanggal: (v = new Date()) => new Date(v).getDate() };
 const json = { parse: JSON.parse, stringify: JSON.stringify };
 const teriak = __runtime.teriak;
 const bisik = __runtime.bisik;

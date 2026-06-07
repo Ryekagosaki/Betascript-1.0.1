@@ -220,6 +220,9 @@ export const deret = {
 export const waktu = {
   sekarang: () => new Date(),
   format: (v: Date | string | number) => new Date(v).toISOString(),
+  tahun: (v: Date | string | number = new Date()) => new Date(v).getFullYear(),
+  bulan: (v: Date | string | number = new Date()) => new Date(v).getMonth() + 1,
+  tanggal: (v: Date | string | number = new Date()) => new Date(v).getDate(),
 };
 
 export const json = {
