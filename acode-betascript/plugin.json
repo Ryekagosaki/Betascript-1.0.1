@@ -1,11 +1,17 @@
 {
+  "$schema": "https://acode.app/schema/plugin/v0.1.0.json",
   "id": "acode.betascript",
   "name": "betascript-acode",
   "displayName": "BetaScript Language Support",
   "description": "Syntax highlighting, transpilation, and execution for BetaScript in Acode",
   "version": "1.0.1",
-  "author": "BetaScript Project",
+  "author": {
+    "name": "BetaScript Project",
+    "github": "Ryekagosaki"
+  },
   "license": "MIT",
+  "repository": "https://github.com/Ryekagosaki/Betascript-1.0.1",
+  "keywords": ["betascript", "betawi", "programming-language", "syntax-highlighting"],
   "main": "src/main.js",
   "icon": "icons/betascript.png",
   "price": 0,

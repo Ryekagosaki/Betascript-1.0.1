@@ -53,6 +53,25 @@ Bahasa ini otomatis ditranspil ke JavaScript, jadi bisa dipake di mana aja JavaS
 
 ### Acode Android (Global via GitHub Release)
 
+Cara paling enak adalah pakai Plugin Source URL Acode:
+
+```text
+https://raw.githubusercontent.com/Ryekagosaki/Betascript-1.0.1/main/acode-plugin-source.json
+```
+
+Langkahnya:
+
+1. Buka Acode.
+2. Masuk ke menu plugin/extension.
+3. Buka pengaturan plugin source/repository source.
+4. Tambahkan URL di atas.
+5. Refresh daftar plugin.
+6. Install `BetaScript`.
+7. Restart Acode.
+8. Buat file `test.beta`.
+
+Kalau Plugin Source URL belum tersedia di versi Acode kamu, pakai cara ZIP manual di bawah.
+
 Plugin Acode BetaScript sudah tersedia sebagai ZIP publik di GitHub Release:
 
 ```text
