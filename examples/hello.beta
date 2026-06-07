@@ -1,0 +1,8 @@
+teriak("Hai dunia!");
+teriak("Ngoding rasa Betawi, kagak ribet!");
+
+ane nama = "BetaScript";
+teriak(nama);
+
+tetep versi = "1.0.0";
+teriak(versi);

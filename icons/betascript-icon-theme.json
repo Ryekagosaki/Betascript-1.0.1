@@ -1,0 +1,13 @@
+{
+  "iconDefinitions": {
+    "betaFile": {
+      "iconPath": "./betascript.svg"
+    }
+  },
+  "fileExtensions": {
+    "beta": "betaFile"
+  },
+  "languageIds": {
+    "betascript": "betaFile"
+  }
+}

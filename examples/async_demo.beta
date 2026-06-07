@@ -1,0 +1,12 @@
+nanti bikin ambil_data() {
+  teriak("Sabar ya, ambil data...");
+  kosong
+}
+
+nanti bikin main() {
+  teriak("Mulai");
+  tungguin ambil_data();
+  teriak("Selesai");
+}
+
+main();

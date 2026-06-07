@@ -1,0 +1,38 @@
+{
+  "name": "betascript",
+  "version": "1.0.0",
+  "description": "Bahasa pemrograman berbasis Betawi - Ngoding rasa Betawi, kagak ribet!",
+  "main": "dist/src/index.js",
+  "bin": {
+    "betascript": "./bin/betascript.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "keywords": ["compiler", "transpiler", "betawi", "indonesian", "programming-language"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "commander": "^11.0.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "moduleFileExtensions": ["ts", "js"],
+    "rootDir": ".",
+    "testMatch": ["**/test/**/*.test.ts"],
+    "testPathIgnorePatterns": ["/node_modules/", "/dist/"]
+  }
+}

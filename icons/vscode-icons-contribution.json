@@ -1,0 +1,14 @@
+{
+  "default": {
+    "file": "betascript",
+    "folder": "betascript"
+  },
+  "supported": [
+    {
+      "type": "file",
+      "extensions": ["beta"],
+      "format": "svg",
+      "iconName": "betascript"
+    }
+  ]
+}

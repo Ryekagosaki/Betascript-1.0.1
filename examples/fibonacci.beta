@@ -1,0 +1,9 @@
+bikin fibonacci(n: angka): angka {
+  kalo (n <= 1) {
+    kasoh n;
+  }
+  kasoh fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+ane hasil = fibonacci(10);
+teriak("Fibonacci(10) =", hasil);

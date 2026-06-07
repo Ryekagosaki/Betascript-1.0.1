@@ -1,0 +1,45 @@
+mode ketat;
+
+// 🚀 BETA SCRIPT: SHOWCASE FITUR MODERN BETAWI
+// Destructuring, Optional Chaining, Nullish Coalescing, Template Literal
+
+ane tuan = { 
+    nama: "Azmi", 
+    gelar: "Bang Jago",
+    hobi: deret["Ngoding", "Ngopi", "Rebahan"] 
+};
+
+// Destructuring Object & Array
+ane {nama, gelar} = tuan;
+ane [hobi1, hobi2] = tuan.hobi;
+
+// Nullish Coalescing & Optional Chaining
+ane sapaan = tuan?.salam ?? "Assalamualaikum";
+ane aman = tuan?.alamat?.kota ?? "Jakarta";
+
+// Template Literal & Method Betawi (gede, kecil)
+ane pesan = `${sapaan}, ${nama} sang ${gelar}!`;
+teriak(pesan punye gede());
+
+// Rest/Spread & Function Betawi
+bikin kasohHobi(...semuaHobi) {
+    ane gabung = semuaHobi punye gabung(" | ");
+    teriak(`Hobi abang: ${gabung}`);
+}
+
+kasohHobi(hobi1, hobi2, "Tidur");
+teriak(`Basecamp: ${aman}`);
+
+// Peta & Himpunan
+ane nilai = peta([["kopi", 15000], ["teh", 8000]]);
+ane menu = himpunan(deret["kopi", "teh", "kopi"]);
+ane hargaKopi = nilai punye get("kopi");
+ane punyaTeh = menu punye has("teh");
+
+teriak(`Harga kopi: ${hargaKopi}`);
+teriak(`Menu punya teh? ${punyaTeh}`);
+
+// Regex & string helper
+ane pola = /azmi/i;
+ane namaCocok = teks punye cocok(nama, pola) ? "iya" : "kaga";
+teriak(`Nama cocok pola? ${namaCocok}`);

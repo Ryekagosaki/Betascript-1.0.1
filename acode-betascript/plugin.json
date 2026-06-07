@@ -1,0 +1,51 @@
+{
+  "id": "acode.betascript",
+  "name": "betascript-acode",
+  "displayName": "BetaScript Language Support",
+  "description": "Syntax highlighting, transpilation, and execution for BetaScript in Acode",
+  "version": "1.0.0",
+  "author": "BetaScript Project",
+  "license": "MIT",
+  "main": "src/main.js",
+  "icon": "icons/betascript.png",
+  "price": 0,
+  "minVersionCode": 290,
+  "acode": {
+    "main": "src/main.js"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "betascript",
+        "name": "BetaScript",
+        "aliases": ["BetaScript", "betascript", "beta"],
+        "extensions": [".beta"],
+        "icon": "icons/betascript.svg"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "betascript",
+        "scopeName": "source.beta",
+        "path": "syntaxes/beta.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "title": "Run BetaScript",
+        "id": "betascript.run",
+        "category": "BetaScript"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "betascript.run",
+        "key": "ctrl+shift+b",
+        "mac": "cmd+shift+b"
+      }
+    ]
+  },
+  "engines": {
+    "acode": "^1.9.0"
+  }
+}

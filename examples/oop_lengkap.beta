@@ -1,0 +1,25 @@
+cetak Binatang {
+  tetep nama = "";
+  
+  mula(ente nama: kata) {
+    gua punye nama = nama;
+  }
+  
+  bikin suara() {
+    teriak("Suara binatang");
+  }
+}
+
+cetak Kucing turun Binatang {
+  mula(ente nama: kata) {
+    babang(nama);
+  }
+  
+  bikin suara() {
+    teriak("Miaw miaw!");
+  }
+}
+
+ane kucing = anyar Kucing("Kitty");
+kucing punye suara();
+teriak(kucing punye nama);
