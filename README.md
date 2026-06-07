@@ -51,6 +51,26 @@ Bahasa ini otomatis ditranspil ke JavaScript, jadi bisa dipake di mana aja JavaS
 
 ## 📦 Cara Install
 
+### Acode Android (Global via GitHub Release)
+
+Plugin Acode BetaScript sudah tersedia sebagai ZIP publik di GitHub Release:
+
+```text
+https://github.com/Ryekagosaki/Betascript-1.0.1/releases/download/v1.0.1/betascript-acode-1.0.1.zip
+```
+
+Cara install di Acode:
+
+1. Download file `betascript-acode-1.0.1.zip` dari link di atas.
+2. Buka Acode di HP.
+3. Masuk ke menu plugin/extension.
+4. Pilih install plugin dari file ZIP lokal.
+5. Pilih `betascript-acode-1.0.1.zip`.
+6. Restart Acode.
+7. Buat file baru, misalnya `test.beta`.
+
+Setelah plugin aktif, file berakhiran `.beta` akan dikenali sebagai file BetaScript dan akan diberi logo BetaScript di Acode file explorer. Kalau logo belum muncul, tutup dan buka ulang folder project atau restart Acode sekali lagi.
+
 ### Terminal (Linux/macOS/Windows)
 
 ```bash
