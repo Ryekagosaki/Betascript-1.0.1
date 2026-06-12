@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { BetaCompiler } from "./index";
+import { Compiler, CompileOptions } from "./compiler/Compiler";
 import * as fs from "fs";
 import * as path from "path";
 import { Command } from "commander";
@@ -8,7 +8,7 @@ import { execSync } from "child_process";
 import { SmartTargetDetector, Target } from "./detection/SmartTargetDetector";
 
 const program = new Command();
-const compiler = new BetaCompiler();
+const compiler = new Compiler();
 const detector = new SmartTargetDetector();
 
 function printUsage() {
@@ -20,6 +20,7 @@ Usage:
 Commands:
   compile <file.beta>       Compile BetaScript (auto-detect target or use --target)
   run <file.beta>           Compile to JS and run immediately
+  web <file.beta>           Compile website from embedded HTML/CSS blocks
   repl                      Interactive BetaScript shell
   format <file.beta>        Format BetaScript file
   lint <file.beta>          Validate BetaScript file
@@ -35,6 +36,7 @@ interface CommandOptions {
   mode?: string;
   semua?: boolean;
   tampilkanKode?: boolean;
+  outDir?: string;
 }
 
 function detectAndCompile(filepath: string, options: CommandOptions = {}, defaultTarget?: string) {
@@ -45,26 +47,22 @@ function detectAndCompile(filepath: string, options: CommandOptions = {}, defaul
   }
 
   const source = fs.readFileSync(absolutePath, "utf-8");
-  const targets = options.target
-    ? [options.target]
-    : options.semua
-      ? detector.getAllTargets()
-      : detector.detect(source, absolutePath);
+  const targets = options.target ? [options.target] : options.semua ? detector.getAllTargets() : detector.detect(source, absolutePath);
 
-  const firstTarget = typeof targets[0] === "string" ? targets[0] : "js";
-  const compileOpts: any = {
+  const firstTarget = typeof targets[0] === "string" ? (targets[0] as string) : "js";
+  const compileOpts: CompileOptions = {
     debug: options.debug,
     mode: (options.mode as any) ?? "full",
+    target: defaultTarget ? defaultTarget as any : firstTarget as any,
   };
-  if (defaultTarget) compileOpts.target = defaultTarget;
 
   if (options.semua) {
-    const outDir = path.resolve("dist");
+    const outDir = path.resolve(options.outDir ?? "dist");
     fs.mkdirSync(outDir, { recursive: true });
     for (const t of targets) {
-      const result = compiler.compileDetailed(source, absolutePath, { ...compileOpts, target: t });
-      const ext = `.${t}`;
-      const outPath = path.join(outDir, path.basename(absolutePath, ".beta") + ext);
+      const result = compiler.compileDetailed(source, absolutePath, { ...compileOpts, target: t as any });
+      const ext = t === "web" ? "html" : t;
+      const outPath = path.join(outDir, path.basename(absolutePath, ".beta") + "." + ext);
       fs.writeFileSync(outPath, result.code, "utf-8");
       console.log(`Compiled to ${outPath}`);
     }
@@ -72,6 +70,15 @@ function detectAndCompile(filepath: string, options: CommandOptions = {}, defaul
   }
 
   const result = compiler.compileDetailed(source, absolutePath, compileOpts);
+  if (compileOpts.target === "web" || compileOpts.mode === "html") {
+    const outDir = path.resolve(options.outDir ?? path.dirname(absolutePath));
+    fs.mkdirSync(outDir, { recursive: true });
+    const outPath = path.join(outDir, "index.html");
+    fs.writeFileSync(outPath, result.code, "utf-8");
+    console.log(`Website compiled to ${outPath}`);
+    return;
+  }
+
   const outPath = absolutePath.replace(".beta", `.${firstTarget}`);
   fs.writeFileSync(outPath, result.code, "utf-8");
   if (options.debug) printDebug(result);
@@ -90,7 +97,8 @@ function runFile(filepath: string, options: CommandOptions = {}) {
   }
 
   const source = fs.readFileSync(absolutePath, "utf-8");
-  const rawTarget = options.target ?? (detector.detect(source, absolutePath)[0] ?? "js");
+  const hasEmbedded = /sisipkan\s+\w+\s+sebagai\s+\w+\s*@\{/.test(source);
+  const rawTarget = options.target ?? (hasEmbedded ? "web" : (detector.detect(source, absolutePath)[0] ?? "js"));
   const target = rawTarget as Target;
   const execute = () => {
     const result = compiler.compileDetailed(source, absolutePath, {
@@ -102,6 +110,14 @@ function runFile(filepath: string, options: CommandOptions = {}) {
       console.log("\n=== HASIL TRANSPILE ===\n");
       console.log(result.code);
       console.log("\n========================\n");
+    }
+    if (target === "web") {
+      const outDir = path.resolve("dist");
+      fs.mkdirSync(outDir, { recursive: true });
+      const outPath = path.join(outDir, "index.html");
+      fs.writeFileSync(outPath, result.code, "utf-8");
+      console.log(`Website written to ${outPath}`);
+      return;
     }
     if (target === "js" || target === "ts" || target === "tsx" || target === "jsx") {
       const module = { exports: {} };
@@ -124,6 +140,10 @@ function runFile(filepath: string, options: CommandOptions = {}) {
       }
     });
   }
+}
+
+function webCommand(filepath: string, options: CommandOptions = {}) {
+  detectAndCompile(filepath, { ...options, mode: "html", target: "web" });
 }
 
 function printDebug(result: any) {
@@ -200,46 +220,53 @@ function initProject() {
 
 function run() {
   program
-    .name('betascript')
-    .description('BetaScript 2.0 Compiler - Smart Target Detection')
-    .version('2.0.0');
+    .name("betascript")
+    .description("BetaScript 2.0 Compiler - Smart Target Detection")
+    .version("2.0.0");
 
   program
-    .command('compile <file>')
-    .description('Compile BetaScript to target language (auto-detected unless --target)')
-    .option('--debug', 'Print IR and compiled output')
-    .option('--target <lang>', 'Target language: js|ts|tsx|jsx|py|cpp|java|kt', "js")
-    .option('--mode <mode>', 'Compilation mode: html|css|full', 'full')
-    .option('--semua', 'Compile to ALL targets')
+    .command("compile <file>")
+    .description("Compile BetaScript to target language (auto-detected unless --target)")
+    .option("--debug", "Print IR and compiled output")
+    .option("--target <lang>", "Target language: js|ts|tsx|jsx|py|cpp|java|kt|web", "js")
+    .option("--mode <mode>", "Compilation mode: html|css|full|compile", "full")
+    .option("--semua", "Compile to ALL targets")
+    .option("--outDir <dir>", "Output directory", ".")
     .action(compileFile);
 
   program
-    .command('run <file>')
-    .description('Compile to JS and run immediately')
-    .option('--watch', 'Auto-reload when file changes')
-    .option('--debug', 'Print IR and compiled output')
-    .option('--target <lang>', 'Target language', 'js')
-    .option('--tampilkan-kode', 'Show transpiled code before running')
+    .command("run <file>")
+    .description("Compile to JS and run immediately")
+    .option("--watch", "Auto-reload when file changes")
+    .option("--debug", "Print IR and compiled output")
+    .option("--target <lang>", "Target language", "js")
+    .option("--tampilkan-kode", "Show transpiled code before running")
     .action(runFile);
 
   program
-    .command('repl')
-    .description('Start interactive BetaScript REPL')
+    .command("web <file>")
+    .description("Compile website from embedded HTML/CSS blocks")
+    .option("--outDir <dir>", "Output directory", ".")
+    .action(webCommand);
+
+  program
+    .command("repl")
+    .description("Start interactive BetaScript REPL")
     .action(repl);
 
   program
-    .command('format <file>')
-    .description('Format a BetaScript file')
+    .command("format <file>")
+    .description("Format a BetaScript file")
     .action(formatFile);
 
   program
-    .command('lint <file>')
-    .description('Lint a BetaScript file')
+    .command("lint <file>")
+    .description("Lint a BetaScript file")
     .action(lintFile);
 
   program
-    .command('init')
-    .description('Initialize beta.config.json')
+    .command("init")
+    .description("Initialize beta.config.json")
     .action(initProject);
 
   program.parse();

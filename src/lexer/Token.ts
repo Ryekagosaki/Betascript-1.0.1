@@ -121,6 +121,10 @@ export enum TokenType {
   OTENTIKASI = "otentikasi",
   DERET = "deret",
 
+  // Embedded blocks
+  SISIPKAN = "sisipkan",
+  EMBEDDED_BLOCK = "@@EMBEDDED_BLOCK@@",
+
   // Operators
   PLUS = "+",
   MINUS = "-",

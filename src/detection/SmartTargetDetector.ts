@@ -3,7 +3,7 @@ import * as path from "path";
 import { PragmaParser } from "../pragma/PragmaParser";
 import { loadBetaConfig, BetaConfig } from "./ProjectConfig";
 
-export type Target = "js" | "ts" | "tsx" | "jsx" | "py" | "cpp" | "java" | "kt";
+export type Target = "js" | "ts" | "tsx" | "jsx" | "py" | "cpp" | "java" | "kt" | "web";
 
 export interface DetectionContext {
   source: string;
@@ -50,7 +50,7 @@ export class SmartTargetDetector {
   }
 
   getAllTargets(): Target[] {
-    return ["js", "ts", "tsx", "jsx", "py", "cpp", "java", "kt"];
+    return ["js", "ts", "tsx", "jsx", "py", "cpp", "java", "kt", "web"];
   }
 
   normalizeTarget(value: string): Target {
@@ -68,6 +68,8 @@ export class SmartTargetDetector {
       java: "java",
       kotlin: "kt",
       kt: "kt",
+      web: "web",
+      html: "web",
     };
     return map[value.toLowerCase().trim()] ?? "js";
   }
